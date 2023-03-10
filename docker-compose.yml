@@ -1,0 +1,9 @@
+services:
+  db: 
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: nestor
+      POSTGRES_USER: nestor
+    ports: 
+      - 5432:5432
