@@ -1,16 +1,16 @@
 name: Test Nestor - Linter CI
 on: [pull_request]
 jobs:
-  lint: 
+  Lint: 
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout 
         uses: actions/checkout@v3
-      - name: Installation Node
+      - name: Node installation
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - name: Installation dependencies
+      - name: Dependencies installation
         run: yarn
-      - name: Check linter
+      - name: Linter check
         run: yarn lint
