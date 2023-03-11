@@ -1,0 +1,16 @@
+name: Test Nestor - Test CI
+on: [pull_request]
+jobs:
+  lint: 
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout 
+        uses: actions/checkout@v3
+      - name: Installation Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: Installation dependencies
+        run: yarn
+      - name: Check linter
+        run: yarn test
