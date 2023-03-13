@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsObject, IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 import { User } from "../user/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Bedroom } from "../bedroom/bedroom.entity";
 
 @Entity()
 export class Apartment {
@@ -28,4 +29,7 @@ export class Apartment {
     @ApiProperty({ type: () => User })
     @ManyToOne(() => User, (user) => user.apartments, { eager: true })
     owner: User;
+
+    @OneToMany(() => Bedroom, (bedroom) => bedroom.apartment)
+    bedrooms: Bedroom[];
 }
