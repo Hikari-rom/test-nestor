@@ -34,8 +34,11 @@ export class ApartmentService {
     }
 
     async deleteOneById(id: number): Promise<DeleteResult> {
-        const user = await this.findOneById(id);
-        return await this.apartmentRepository.delete(user);
+        const apartment = await this.apartmentRepository.findOneBy({ id: id });
+        if (apartment == null) {
+            return null;
+        }
+        return await this.apartmentRepository.delete(apartment);
     }
 
     async update(apartment: Apartment): Promise<Apartment> {
