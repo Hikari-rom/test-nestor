@@ -3,4 +3,5 @@ export class Bedroom {
     apartment: number;
     size: number;
     description: string;
+    numberOfBeds: number;
 }
