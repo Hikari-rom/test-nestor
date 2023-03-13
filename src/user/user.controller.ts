@@ -26,7 +26,7 @@ export class UserController {
     }
 
     @Put()
-    async update(@Body() user: User): Promise<User> {
+    async update(@Body() user: Partial<User>): Promise<User> {
         return await this.userService.update(user);
     }
 

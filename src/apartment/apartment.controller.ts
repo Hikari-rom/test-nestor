@@ -30,7 +30,7 @@ export class ApartmentController {
     }
 
     @Put()
-    async update(@Body() user: Apartment): Promise<Apartment> {
+    async update(@Body() user: Partial<Apartment>): Promise<Apartment> {
         return await this.apartmentService.update(user);
     }
 

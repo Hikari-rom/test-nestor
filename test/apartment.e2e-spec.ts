@@ -36,7 +36,6 @@ beforeAll(async () => {
     apartmentRepository = module.get('ApartmentRepository');
     userRepository = module.get('UserRepository');
     await userRepository.save(seedsUsers.user1);
-    // await apartmentRepository.save(user2);
 });
 
 it('/apartments (POST) 1/2', async () => {
@@ -103,5 +102,6 @@ it('/apartments/:id (DELETE)', async () => {
 
 afterAll(async () => {
     await apartmentRepository.query(`TRUNCATE "apartment" RESTART IDENTITY CASCADE;`);
+    await userRepository.query(`TRUNCATE "user" RESTART IDENTITY CASCADE;`);
     await app.close();
 });

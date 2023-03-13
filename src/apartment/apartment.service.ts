@@ -41,7 +41,8 @@ export class ApartmentService {
         return await this.apartmentRepository.delete(apartment);
     }
 
-    async update(apartment: Apartment): Promise<Apartment> {
-        return await this.apartmentRepository.save(apartment);
+    async update(apartment: Partial<Apartment>): Promise<Apartment> {
+        await this.apartmentRepository.update(apartment.id, apartment);
+        return await this.apartmentRepository.findOneBy({ id: apartment.id });
     }
 }

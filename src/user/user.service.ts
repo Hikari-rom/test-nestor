@@ -32,8 +32,8 @@ export class UserService {
         return await this.usersRepository.delete(user);
     }
 
-    async update(user: User): Promise<User> {
-        await this.usersRepository.save(user);
-        return this.usersRepository.findOneBy({ id: user.id });
+    async update(user: Partial<User>): Promise<User> {
+        await this.usersRepository.update(user.id, user);
+        return await this.usersRepository.findOneBy({ id: user.id });
     }
 }
