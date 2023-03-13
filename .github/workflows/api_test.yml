@@ -13,4 +13,4 @@ jobs:
       - name: Dependencies installation
         run: yarn
       - name: Test check
-        run: yarn test
+        run: yarn test:e2e
