@@ -24,14 +24,15 @@ export class BedroomService {
     }
 
     async create(partialBedroom: createBedroomDto): Promise<Bedroom> {
+        console.log(partialBedroom);
         const apartment = await this.apartmentService.findOneById(partialBedroom.apartment_id);
         if (apartment == null) {
             return null;
         }
         const bedroom = await this.bedroomRepository.create(partialBedroom);
         bedroom.apartment = apartment;
-        console.log(bedroom);
-        return await this.bedroomRepository.save(apartment);
+        console.log(bedroom.size);
+        return await this.bedroomRepository.save(bedroom);
     }
 
     async deleteOneById(id: number): Promise<DeleteResult> {
