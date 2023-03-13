@@ -3,12 +3,14 @@ import { createUserDto } from "../../interfaces/createUser.dto";
 import { DeleteResult } from "typeorm";
 import { User } from "./user.entity";
 import { UserService } from "./user.service";
+import { ApiBody } from "@nestjs/swagger";
 
 @Controller('users')
 export class UserController {
     constructor(private userService: UserService) { }
 
     @Post()
+    @ApiBody({ type: createUserDto })
     async create(@Body() user: createUserDto): Promise<User> {
         return await this.userService.create(user);
     }
