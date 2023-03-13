@@ -12,6 +12,9 @@ export class User {
     email: string;
     @Column()
     @IsString()
+    password: string;
+    @Column()
+    @IsString()
     first_name: string;
     @Column()
     @IsString()

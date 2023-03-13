@@ -8,6 +8,8 @@ export class createUserDto {
     @IsString()
     email: string;
     @IsString()
+    password: string;
+    @IsString()
     address: string;
     @IsString()
     zipcode: string;
