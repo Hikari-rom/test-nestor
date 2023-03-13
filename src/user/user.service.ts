@@ -25,11 +25,15 @@ export class UserService {
     }
 
     async deleteOneById(id: number): Promise<DeleteResult> {
-        const user = await this.findOneById(id);
+        const user = await this.usersRepository.findOneBy({ id: id });
+        if (user == null) {
+            return null;
+        }
         return await this.usersRepository.delete(user);
     }
 
-    async update(user: User): Promise<User> {
-        return await this.usersRepository.save(user);
+    async update(user: Partial<User>): Promise<User> {
+        await this.usersRepository.update(user.id, user);
+        return await this.usersRepository.findOneBy({ id: user.id });
     }
 }
