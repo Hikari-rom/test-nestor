@@ -43,7 +43,7 @@ beforeAll(async () => {
     apartmentRepository = module.get('ApartmentRepository');
     userRepository = module.get('UserRepository');
     await userRepository.save(seedsUsers.user1);
-    await apartmentRepository.save(seedsApartments.apartment1);
+    await apartmentRepository.save(seedsApartments.resultApartment1);
 });
 
 it('/bedrooms (POST) 1/2', async () => {
@@ -59,14 +59,14 @@ it('/bedrooms (POST) 1/2', async () => {
 });
 
 it('/bedrooms (GET)', async () => {
-    return request(app.getHttpServer())
+    return await request(app.getHttpServer())
         .get('/bedrooms')
         .expect(200)
         .expect([seedsBedrooms.resultBedroom1]);
 });
 
 it('/bedrooms/:id (GET)', async () => {
-    return request(app.getHttpServer())
+    return await request(app.getHttpServer())
         .get('/bedrooms/1')
         .expect(200)
         .expect(seedsBedrooms.resultBedroom1);
@@ -89,7 +89,7 @@ it('/bedrooms (PUT)', async () => {
         .put('/bedrooms')
         .send(seedsBedrooms.partBedroom2)
         .expect(200);
-    return request(app.getHttpServer())
+    return await request(app.getHttpServer())
         .get('/bedrooms/2')
         .expect(200)
         .expect(seedsBedrooms.updateBedroom2);

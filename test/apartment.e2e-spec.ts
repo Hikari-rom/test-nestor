@@ -35,6 +35,7 @@ beforeAll(async () => {
     await app.init();
     apartmentRepository = module.get('ApartmentRepository');
     userRepository = module.get('UserRepository');
+    await apartmentRepository.query(`TRUNCATE "apartment" RESTART IDENTITY CASCADE;`);
     await userRepository.save(seedsUsers.user1);
 });
 
@@ -51,14 +52,14 @@ it('/apartments (POST) 1/2', async () => {
 });
 
 it('/apartments (GET)', async () => {
-    return request(app.getHttpServer())
+    return await request(app.getHttpServer())
         .get('/apartments')
         .expect(200)
         .expect([seedsApartments.resultApartment1]);
 });
 
 it('/apartments/:id (GET)', async () => {
-    return request(app.getHttpServer())
+    return await request(app.getHttpServer())
         .get('/apartments/1')
         .expect(200)
         .expect(seedsApartments.resultApartment1);
@@ -81,7 +82,7 @@ it('/apartments (PUT)', async () => {
         .put('/apartments')
         .send(seedsApartments.partApartment2)
         .expect(200);
-    return request(app.getHttpServer())
+    return await request(app.getHttpServer())
         .get('/apartments/2')
         .expect(200)
         .expect(seedsApartments.updateApartment2);

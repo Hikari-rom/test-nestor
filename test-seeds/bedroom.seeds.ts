@@ -1,4 +1,4 @@
-import { apartment1 } from "./apartment.seeds";
+import { resultApartment1 } from "./apartment.seeds";
 
 export const bedroom1 = {
     "description": "This is the bedroom 1 description",
@@ -13,7 +13,7 @@ export const resultBedroom1 = {
     "description": "This is the bedroom 1 description",
     "size": 14,
     "numberOfBeds": 1,
-    "apartment": apartment1
+    "apartment": resultApartment1
 }
 
 export const bedroom2 = {
@@ -29,7 +29,7 @@ export const resultBedroom2 = {
     "description": "This is the bedroom 2 description",
     "size": 20,
     "numberOfBeds": 2,
-    "apartment": apartment1
+    "apartment": resultApartment1
 }
 
 export const partBedroom2 = {
@@ -42,5 +42,5 @@ export const updateBedroom2 = {
     "description": "This is the bedroom 2 description",
     "size": 19,
     "numberOfBeds": 2,
-    "apartment": apartment1
+    "apartment": resultApartment1
 }
