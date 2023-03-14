@@ -30,8 +30,8 @@ export class BedroomController {
     }
 
     @Put()
-    async update(@Body() user: Partial<Bedroom>): Promise<Bedroom> {
-        return await this.bedroomService.update(user);
+    async update(@Body() bedroom: Partial<Bedroom>): Promise<Bedroom> {
+        return await this.bedroomService.update(bedroom);
     }
 
     @Delete('/:id')
