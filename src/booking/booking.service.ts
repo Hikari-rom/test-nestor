@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { createBookingDto } from "../../interfaces/createBooking.dto";
 import { BedroomService } from "../bedroom/bedroom.service";
 import { UserService } from "../user/user.service";
-import { DeleteResult, Repository } from "typeorm";
+import { Between, DeleteResult, Repository } from "typeorm";
 import { Booking } from "./booking.entity";
 
 @Injectable()
@@ -39,9 +39,16 @@ export class BookingService {
         }
 
         const start_date = new Date(partialBooking.start_date);
-        const start_date_check = new Date(JSON.parse(JSON.stringify(partialBooking.start_date)));
+        const start_date_check = new Date(partialBooking.start_date);
         const end_date = new Date(partialBooking.end_date);
 
+        if (start_date > end_date) {
+            return "The end date can't be earlier than the start date";
+        }
+
+        if (start_date < new Date()) {
+            return "The start date must be in the future";
+        }
         for (start_date_check; start_date_check <= end_date; start_date_check.setDate(start_date_check.getDate() + 1)) {
             const checkBookingDate = await this.bookingRepository.countBy({ bedroom: bedroom, date: start_date_check });
             if (checkBookingDate > 0) {
@@ -53,12 +60,11 @@ export class BookingService {
             }
         }
 
-        const bookings: Booking[] = [];
         for (start_date; start_date <= end_date; start_date.setDate(start_date.getDate() + 1)) {
-            bookings.push(await this.bookingRepository.create({ date: start_date, user: user, bedroom: bedroom, price: partialBooking.price }));
+            await this.bookingRepository.save({ date: start_date, user: user, bedroom: bedroom, price: partialBooking.price });
         }
 
-        return await this.bookingRepository.save(bookings);
+        return await this.bookingRepository.findBy({ user: user, bedroom: bedroom, date: Between(new Date(partialBooking.start_date), end_date) });
     }
 
     async deleteOneById(id: number): Promise<DeleteResult> {
