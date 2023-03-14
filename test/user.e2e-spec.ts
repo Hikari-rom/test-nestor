@@ -35,14 +35,14 @@ beforeAll(async () => {
     await usersRepository.save(seedsUsers.user2);
 });
 
-it('/users (GET)', async () => {
+it('/users (GET)', () => {
     return request(app.getHttpServer())
         .get('/users')
         .expect(200)
         .expect([seedsUsers.user1, seedsUsers.user2]);
 });
 
-it('/users/:id (GET)', async () => {
+it('/users/:id (GET)', () => {
     return request(app.getHttpServer())
         .get('/users/1')
         .expect(200)
@@ -55,7 +55,7 @@ it('/users (POST)', async () => {
         .send(seedsUsers.user3)
         .expect(201)
         .expect(seedsUsers.user3);
-    return await request(app.getHttpServer())
+    return request(app.getHttpServer())
         .get('/users')
         .expect(200)
         .expect([seedsUsers.user1, seedsUsers.user2, seedsUsers.user3]);
@@ -79,7 +79,7 @@ it('/users/:id (DELETE)', async () => {
             "raw": [],
             "affected": 1
         });
-    return await request(app.getHttpServer())
+    return request(app.getHttpServer())
         .get('/users')
         .expect(200)
         .expect([seedsUsers.user1, seedsUsers.user2]);
