@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from "class-validator";
 import { Apartment } from '../apartment/apartment.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Booking } from '../booking/booking.entity';
 
 @Entity()
 export class User {
@@ -47,4 +48,7 @@ export class User {
 
     @OneToMany(() => Apartment, (apartment) => apartment.owner)
     apartments: Apartment[];
+
+    @OneToMany(() => Booking, (booking) => booking.user)
+    bookings: Booking[];
 }

@@ -12,11 +12,11 @@ export class BedroomController {
     @Post()
     @ApiBody({ type: createBedroomDto })
     async create(@Body() partialApartment: createBedroomDto): Promise<Bedroom> {
-        const apartment = await this.bedroomService.create(partialApartment);
-        if (apartment == null) {
+        const bedroom = await this.bedroomService.create(partialApartment);
+        if (bedroom == null) {
             throw new HttpException('This apartment doesn\`t exist', HttpStatus.BAD_REQUEST);
         }
-        return apartment;
+        return bedroom;
     }
 
     @Get()
@@ -30,8 +30,8 @@ export class BedroomController {
     }
 
     @Put()
-    async update(@Body() user: Partial<Bedroom>): Promise<Bedroom> {
-        return await this.bedroomService.update(user);
+    async update(@Body() bedroom: Partial<Bedroom>): Promise<Bedroom> {
+        return await this.bedroomService.update(bedroom);
     }
 
     @Delete('/:id')
